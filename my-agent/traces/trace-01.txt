@@ -1,0 +1,31 @@
+[Trace-01] 정상 조회
+요청: "A-17 상품의 서울 창고 재고를 알려줘"
+도구: get_inventory
+인자: sku="A-17", warehouse_id="SEOUL-01"
+반환 근거: available_quantity=120, checked_at="2026-08-27T04:31:21"
+최종 답: "A-17 상품의 서울 창고 (SEOUL-01) 재고는 120개입니다."
+중단/이관: 없음
+
+[Trace-02] 허용되지 않은 창고
+요청: "B-23 상품의 부산 3번 창고 재고를 알려줘"
+도구: get_inventory
+인자: sku="B-23", warehouse_id="BUSAN-03"
+반환 근거: error="WAREHOUSE_NOT_ALLOWED"
+최종 답: "BUSAN-03은 허용되지 않는 창고 코드입니다. 허용된 창고: SEOUL-01, BUSAN-02"
+중단/이관: 보류 — WAREHOUSE_NOT_ALLOWED
+
+[Trace-03] 도구 없이 질문
+요청: "안녕하세요, 오늘 날씨가 좋네요"
+도구: 없음
+인자: 없음
+반환 근거: 없음
+최종 답: "안녕하세요! 재고 조회를 도와드릴까요?"
+중단/이관: 없음 (도구 호출 불필요)
+
+[Trace-04] 사용자 확인 후 다운로드
+요청: "첫 번째 이미지 다운로드해줘"
+도구: download_image
+인자: pin_id="pin_12345"
+반환 근거: status="success", file_path="./downloads/minimal_logo/pin_12345.jpg"
+최종 답: "다운로드 완료: ./downloads/minimal_logo/pin_12345.jpg (240KB)"
+중단/이관: 사용자 확인 후 실행
